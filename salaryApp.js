@@ -84,7 +84,10 @@ function addRecordHandler() {
 
   if (!name || !salary) {
     showDataError(name, salary);
+    document.getElementById("name").value = '';
+    document.getElementById("salary").value = '';
     return;
+    
   }
 
   addRecord(name, salary);
@@ -166,9 +169,12 @@ var showDataError = function (name, salary) {
   let dlg = document.getElementById("dialog-error");
   dlg.classList.remove("d-none");
 
-  toggleErrorMessage("#newName", name, "Who the hell you are talking about!");
-  toggleErrorMessage("#newSalary", salary, "How much that guy make!");
-
+  if(!name && salary){
+    toggleErrorMessage("newName", name, "Who the hell you are talking about!");
+  }
+  else if(!salary && name){
+    toggleErrorMessage("newSalary", salary, "How much that guy make!");
+  }
   dlg=$( "#dialog-error" ).dialog({
     width: 600,
     buttons: {
@@ -189,11 +195,14 @@ var showDataError = function (name, salary) {
   }); */
 };
 
+
 function toggleErrorMessage(selector, value, msg) {
   if (value) {
-    document.getElementById(selector + "line").style.display = "none";
-  } else {
+    document.getElementById(selector).innerText = msg;
     document.getElementById(selector + "line").style.display = "block";
+    
+  } else {  
+    document.getElementById("newSalaryLine").style.display = "block";
     document.getElementById(selector).innerText = msg;
   }
 }
