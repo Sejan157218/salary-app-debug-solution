@@ -131,7 +131,7 @@ const loadFirebaseData = function (resHandler) {
 };
 
 const displayLastItemDialog = function (lastItem) {
-  const dlg = document.getElementById("dialog-last-item");
+  let dlg = document.getElementById("dialog-last-item");
   dlg.classList.remove("d-none");
   document.getElementById("showName").innerText = lastItem.name;
   document.getElementById("showSalary").innerText = d3.format(",.0f")(
@@ -142,31 +142,51 @@ lastItem.salary
 lastItem.salary
   );
   
-  dlg.dialog({
+  dlg=$( "#dialog-last-item" ).dialog({
+    width: 600,
+    buttons: {
+      Ok: function () {
+        $( "#dialog-last-item" ).dialog("close");
+      },
+    },
+  });
+
+  // Wrong code
+  /* dlg.dialog({
     width: 600,
     buttons: {
       Ok: function () {
         $(this).dialog("close");
       },
     },
-  });
+  }); */
 };
 
 var showDataError = function (name, salary) {
-  const dlg = document.getElementById("dialog-error");
+  let dlg = document.getElementById("dialog-error");
   dlg.classList.remove("d-none");
 
   toggleErrorMessage("#newName", name, "Who the hell you are talking about!");
   toggleErrorMessage("#newSalary", salary, "How much that guy make!");
 
-  dlg.dialog({
+  dlg=$( "#dialog-error" ).dialog({
+    width: 600,
+    buttons: {
+      Ok: function () {
+        $( "#dialog-error" ).dialog("close");
+      },
+    },
+  });
+
+// wrong code
+  /* dlg.dialog({
     width: 600,
     buttons: {
       Ok: function () {
         $(this).dialog("close");
       },
     },
-  });
+  }); */
 };
 
 function toggleErrorMessage(selector, value, msg) {
@@ -179,18 +199,30 @@ function toggleErrorMessage(selector, value, msg) {
 }
 
 const showRecordCount = function (data) {
-  const dlg = document.getElementById("dialog-record-count");
+  let dlg = document.getElementById("dialog-record-count");
 
   dlg.classList.remove("d-none");
 
   document.getElementById("numberOfRecords").innerText = data.length;
-  dlg.dialog({
+  
+
+  dlg=$( "#dialog-record-count" ).dialog({
+    width: 600,
     buttons: {
       Ok: function () {
-        $(this).dialog("close");
+        $( "#dialog-record-count" ).dialog("close");
       },
     },
   });
+  
+  // wrong dialog-error
+ /*  dlg.dialog({
+    buttons: {
+      Ok: function () {
+        $('#dialog-record-count').dialog("close");
+      },
+    },
+  }); */
 };
 
 const anotherRecordCountHandler = function anotherRecordCountHandler(e) {
